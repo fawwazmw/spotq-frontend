@@ -6,23 +6,31 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
+const getStrapiURL = (path) => {
+  const baseURL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+  return `${baseURL}${path.startsWith('/') ? path : `/${path}`}`;
+};
+
+
 // Fetch Coffee Shops
 export const fetchCoffeeShops = createAsyncThunk(
     'products/fetchCoffeeShops',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/coffee-shops?populate=*`);
+        const url = getStrapiURL('/api/coffee-shops?populate=*');
+        console.log('Fetching from URL:', url); // Debug URL
+        const response = await axios.get(url);
 
         return response.data.data.map(item => ({
           id: item.id,
           img: {
             url: item.img?.formats?.small?.url
-                ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.img.formats.small.url}`
+                ? getStrapiURL(item.img.formats.small.url)
                 : null,
           },
           img_big: {
             url: item.img_big?.formats?.large?.url
-                ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.img_big.formats.large.url}`
+                ? getStrapiURL(item.img_big.formats.large.url)
                 : null,
           },
           title: item.title,
@@ -40,27 +48,30 @@ export const fetchCoffeeShops = createAsyncThunk(
     }
 );
 
+
 // Filter Coffee Shops
 export const filterCoffeeShops = createAsyncThunk(
     'products/filterCoffeeShops',
     async ({ category, tag }, { rejectWithValue }) => {
       try {
-        let url = `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/coffee-shops?populate=*`;
+        let url = getStrapiURL('/api/coffee-shops?populate=*');
 
         if (category) {
-          url += `&filters[category][$eq]=${category}`;
+          url += `&filters[category][$eq]=${encodeURIComponent(category)}`;
         }
 
         if (tag) {
-          url += `&filters[tag][$eq]=${tag}`;
+          url += `&filters[tag][$eq]=${encodeURIComponent(tag)}`;
         }
+
+        console.log('Filtering with URL:', url); // Debugging URL
 
         const response = await axios.get(url);
         return response.data.data.map(item => ({
           id: item.id,
           ...item,
           img: item.img?.formats?.small?.url
-              ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${item.img.formats.small.url}`
+              ? getStrapiURL(item.img.formats.small.url)
               : null,
         }));
       } catch (error) {
@@ -68,6 +79,7 @@ export const filterCoffeeShops = createAsyncThunk(
       }
     }
 );
+
 
 const productSlice = createSlice({
   name: 'products',
