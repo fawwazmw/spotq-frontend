@@ -3,8 +3,8 @@ module.exports = {
   images: {
     domains: [
       'localhost',                     // Untuk pengembangan lokal
-      'example.com',                   // Domain utama
-      'api.example.com',               // API domain
+      'spotq.fwzdev.com',                   // Domain utama
+      'innovative-desire-2e8cb3f5b1.strapiapp.com',               // API domain
       'innovative-desire-2e8cb3f5b1.media.strapiapp.com', // Domain media Strapi
     ],
   },
