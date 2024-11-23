@@ -15,7 +15,7 @@ const SidebarMenu = ({ show, handleClose, isLoggedIn, user, logout }) => {
                    <div className="logo">
                       <Link href="/home">
                          <a>
-                            <Image src="assets/img/logo/logo-white.png" alt="logo"/>
+                            <Image src="assets/img/logo/logo-white.png" width={133} height={40} alt="logo"/>
                          </a>
                       </Link>
                    </div>
