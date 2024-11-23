@@ -6,32 +6,25 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
-const getStrapiURL = (path) => {
-  const baseURL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-  return `${baseURL}${path.startsWith('/') ? path : `/${path}`}`;
+const getStrapiURL = (url) => {
+  if (!url) return null; // Jika URL tidak ada, kembalikan null
+  return url.startsWith('http') ? url : `${process.env.NEXT_PUBLIC_STRAPI_URL}${url}`;
 };
-
 
 // Fetch Coffee Shops
 export const fetchCoffeeShops = createAsyncThunk(
     'products/fetchCoffeeShops',
     async (_, { rejectWithValue }) => {
       try {
-        const url = getStrapiURL('/api/coffee-shops?populate=*');
-        console.log('Fetching from URL:', url); // Debug URL
-        const response = await axios.get(url);
+        const response = await axios.get(getStrapiURL('/api/coffee-shops?populate=*'));
 
         return response.data.data.map(item => ({
           id: item.id,
           img: {
-            url: item.img?.formats?.small?.url
-                ? getStrapiURL(item.img.formats.small.url)
-                : null,
+            url: getStrapiURL(item.img?.formats?.small?.url),
           },
           img_big: {
-            url: item.img_big?.formats?.large?.url
-                ? getStrapiURL(item.img_big.formats.large.url)
-                : null,
+            url: getStrapiURL(item.img_big?.formats?.large?.url),
           },
           title: item.title,
           location: item.location,
@@ -49,6 +42,7 @@ export const fetchCoffeeShops = createAsyncThunk(
 );
 
 
+
 // Filter Coffee Shops
 export const filterCoffeeShops = createAsyncThunk(
     'products/filterCoffeeShops',
@@ -64,22 +58,17 @@ export const filterCoffeeShops = createAsyncThunk(
           url += `&filters[tag][$eq]=${encodeURIComponent(tag)}`;
         }
 
-        console.log('Filtering with URL:', url); // Debugging URL
-
         const response = await axios.get(url);
         return response.data.data.map(item => ({
           id: item.id,
           ...item,
-          img: item.img?.formats?.small?.url
-              ? getStrapiURL(item.img.formats.small.url)
-              : null,
+          img: getStrapiURL(item.img?.formats?.small?.url),
         }));
       } catch (error) {
         return rejectWithValue(error.response?.data || error.message);
       }
     }
 );
-
 
 const productSlice = createSlice({
   name: 'products',
