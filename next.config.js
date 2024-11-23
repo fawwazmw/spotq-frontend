@@ -2,13 +2,13 @@ module.exports = {
   reactStrictMode: true,
   images: {
     domains: [
-      'localhost',                     // Untuk pengembangan lokal
-      'spotq.fwzdev.site',                   // Domain utama
-      'innovative-desire-2e8cb3f5b1.strapiapp.com',               // API domain
-      'innovative-desire-2e8cb3f5b1.media.strapiapp.com', // Domain media Strapi
+      'localhost', // For local development
+      'spotq.fwzdev.site', // Primary domain
+      'innovative-desire-2e8cb3f5b1.strapiapp.com', // API domain
+      'innovative-desire-2e8cb3f5b1.media.strapiapp.com', // Strapi media domain
     ],
   },
   env: {
-    BASE_URL: process.env.BASE_URL,    // Menggunakan variabel lingkungan untuk API
+    BASE_URL: process.env.BASE_URL || 'http://localhost:1337', // Fallback for development
   },
 };
