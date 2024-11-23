@@ -218,6 +218,7 @@ const Product = () => {
                                       alt={item?.title || 'Default alt'}
                                       width={1600}
                                       height={900}
+                                      unoptimized={true}
                                   />
                                 </a>
                               </Link>
