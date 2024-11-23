@@ -55,7 +55,7 @@ const Order = ({ formData, setFormData, handleOrderSubmit }) => {
       console.log('Order Data to be sent:', orderData);
 
       try {
-         axios.post('http://localhost:1337/api/bookeds', orderData)
+         axios.post('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/bookeds', orderData)
              .then((response) => {
                 console.log('Order placed successfully:', response);
 

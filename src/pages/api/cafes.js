@@ -3,9 +3,9 @@ async function fetchCafeData() {
     try {
         // Fetch data from Strapi API
         const [cafesResponse, roomsResponse, facilitiesResponse] = await Promise.all([
-            fetch('http://localhost:1337/api/cafes'),
-            fetch('http://localhost:1337/api/rooms'),
-            fetch('http://localhost:1337/api/facilities'),
+            fetch('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/cafes'),
+            fetch('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/rooms'),
+            fetch('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/facilities'),
         ]);
 
         // Convert the response to JSON

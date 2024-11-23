@@ -8,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 // Helper function for axios request with better error logging
 const sendOrderToStrapi = async (orderData) => {
    try {
-      const response = await axios.post('http://localhost:1337/api/bookeds', orderData, {
+      const response = await axios.post('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/bookeds', orderData, {
          headers: {
             'Content-Type': 'application/json',
             // Add authentication if needed
@@ -72,7 +72,7 @@ const CheckoutArea = () => {
    // Function to handle the order submission
    const handleOrderSubmit = async (orderData) => {
       try {
-         const response = await axios.post('http://localhost:1337/api/bookeds', orderData, {
+         const response = await axios.post('https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/bookeds', orderData, {
             headers: {
                'Content-Type': 'application/json',
                // Add authentication if needed

@@ -108,7 +108,7 @@ const ProductCart = () => {
    useEffect(() => {
       const fetchOrders = async () => {
          try {
-            const response = await axios.get(`http://localhost:1337/api/bookeds?filters[user][id]=${user.id}`);
+            const response = await axios.get(`https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/bookeds?filters[user][id]=${user.id}`);
             setOrders(response.data.data);
          } catch (error) {
             console.error('Error fetching orders:', error);

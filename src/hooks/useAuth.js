@@ -15,7 +15,7 @@ const useAuth = () => {
 
             if (storedUser && storedToken) {
                 try {
-                    const response = await axios.get("http://localhost:1337/api/users/me", {
+                    const response = await axios.get("https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/users/me", {
                         headers: {
                             Authorization: `Bearer ${storedToken}`,
                         },
@@ -51,7 +51,7 @@ const useAuth = () => {
     // Register a new user
     const handleRegister = async (name, email, password, reset) => {
         try {
-            const response = await axios.post("http://localhost:1337/api/auth/local/register", {
+            const response = await axios.post("https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/auth/local/register", {
                 username: name,
                 email: email,
                 password: password,
@@ -73,7 +73,7 @@ const useAuth = () => {
     // Login an existing user
     const loginUser = async (email, password, reset) => {
         try {
-            const response = await axios.post("http://localhost:1337/api/auth/local", {
+            const response = await axios.post("https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/auth/local", {
                 identifier: email,
                 password: password,
             });
@@ -108,7 +108,7 @@ const useAuth = () => {
     // Handle password reset email
     const passwordResetEmail = async (email) => {
         try {
-            const response = await axios.post("http://localhost:1337/api/auth/forgot-password", {
+            const response = await axios.post("https://innovative-desire-2e8cb3f5b1.strapiapp.com/api/auth/forgot-password", {
                 email: email,
             });
             alert("Email reset password telah dikirim.");
