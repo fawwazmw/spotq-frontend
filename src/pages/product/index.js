@@ -58,8 +58,7 @@ const Product = () => {
 
   // Ensure images are properly loaded
   const getImageUrl = (product) => {
-    const url = product?.img_big?.url;
-    return url && url.startsWith('http') ? url : '/placeholder-image.png';
+    return product?.img_big?.url || '/placeholder-image.png';
   };
 
   // Handlers
@@ -219,9 +218,6 @@ const Product = () => {
                                       alt={item?.title || 'Default alt'}
                                       width={1600}
                                       height={900}
-                                      onError={(e) => {
-                                        e.target.src = '/placeholder-image.png';
-                                      }}
                                   />
                                 </a>
                               </Link>
